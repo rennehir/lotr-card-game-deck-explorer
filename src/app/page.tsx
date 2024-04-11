@@ -1,6 +1,7 @@
 import { DeckList } from "@/components/decklist";
 import { getDeckList } from "@/lib/ringsdb";
 import { DeckSearch } from "@/components/deck-search";
+import { Box, Heading, VStack } from "@chakra-ui/react";
 
 const getDecklist = async () => {
   const decklist = await getDeckList();
@@ -12,10 +13,13 @@ const Home = async () => {
 
   return (
     <main>
-      <DeckSearch />
-      <div>
-        <DeckList decks={decks} />
-      </div>
+      <VStack spacing={6} align="stretch">
+        <DeckSearch />
+        <Box>
+          <Heading as="h2">Decks published today</Heading>
+          <DeckList decks={decks} />
+        </Box>
+      </VStack>
     </main>
   );
 };

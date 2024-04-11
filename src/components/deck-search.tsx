@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { searchDeck } from "@/app/actions";
 import { Deck } from "@/lib/ringsdb";
-import { Button, Card, Input } from "@chakra-ui/react";
+import { Box, Button, Heading, HStack, Input, VStack } from "@chakra-ui/react";
 import { DeckPreview } from "./deck-preview";
 
 export const DeckSearch = () => {
@@ -11,17 +11,27 @@ export const DeckSearch = () => {
   // TODO: Loading state
 
   return (
-    <Card padding={6}>
+    <VStack spacing={6} marginBlock={6} align="stretch">
+      <Heading as="h2">Search for a deck</Heading>
       <form
         action={async (formData) => {
           const deck = await searchDeck(formData);
           setDeck(deck);
         }}
       >
-        <Input name="deckId" type="text" placeholder="Search for a deck" />
-        <Button type="submit">Search</Button>
+        <HStack spacing={2}>
+          <Input name="deckId" type="text" placeholder="Search for a deck" />
+          <Button type="submit">Search</Button>
+        </HStack>
       </form>
-      {deck && <DeckPreview deck={deck} />}
-    </Card>
+      {deck && (
+        <VStack spacing={4} align="stretch">
+          <Heading as="h3" size="lg">
+            Search result
+          </Heading>
+          <DeckPreview deck={deck} />
+        </VStack>
+      )}
+    </VStack>
   );
 };
