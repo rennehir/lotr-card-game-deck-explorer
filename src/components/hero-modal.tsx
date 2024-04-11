@@ -10,6 +10,12 @@ import {
   ModalCloseButton,
   Button,
   Skeleton,
+  Stat,
+  StatGroup,
+  StatLabel,
+  StatNumber,
+  Box,
+  VStack,
 } from "@chakra-ui/react";
 
 import { Card, getCard } from "@/lib/ringsdb";
@@ -45,12 +51,48 @@ export const HeroModal = ({ cardId, isOpen, onClose }: HeroModalProps) => {
         <Skeleton isLoaded={!loading && !!hero}>
           {hero && (
             <ModalBody>
-              <Image
-                src={`${IMAGE_BASE_URL}${hero.imagesrc}`}
-                width={100}
-                height={100}
-                alt={hero.name}
-              />
+              <VStack spacing={4} alignItems="between">
+                <StatGroup>
+                  <Stat>
+                    <StatLabel>Name</StatLabel>
+                    <StatNumber>{hero.name}</StatNumber>
+                  </Stat>
+                  <Stat>
+                    <StatLabel>Sphere</StatLabel>
+                    <StatNumber>{hero.sphere_name}</StatNumber>
+                  </Stat>
+                </StatGroup>
+                <StatGroup>
+                  <Stat>
+                    <StatLabel>Threat</StatLabel>
+                    <StatNumber>{hero.threat}</StatNumber>
+                  </Stat>
+                  <Stat>
+                    <StatLabel>Willpower</StatLabel>
+                    <StatNumber>{hero.willpower}</StatNumber>
+                  </Stat>
+                  <Stat>
+                    <StatLabel>Attack</StatLabel>
+                    <StatNumber>{hero.attack}</StatNumber>
+                  </Stat>
+                  <Stat>
+                    <StatLabel>Defense</StatLabel>
+                    <StatNumber>{hero.defense}</StatNumber>
+                  </Stat>
+                  <Stat>
+                    <StatLabel>Health</StatLabel>
+                    <StatNumber>{hero.health}</StatNumber>
+                  </Stat>
+                </StatGroup>
+                <Box position="relative" width="full" height={520}>
+                  <Image
+                    src={`${IMAGE_BASE_URL}${hero.imagesrc}`}
+                    fill={true}
+                    objectFit="contain"
+                    alt={hero.name}
+                  />
+                </Box>
+              </VStack>
             </ModalBody>
           )}
         </Skeleton>
