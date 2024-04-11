@@ -26,13 +26,49 @@ type HeroDetails = {
   pack: string;
 };
 
+export type Card = {
+  pack_code: string;
+  pack_name: string;
+  type_code: string;
+  type_name: string;
+  sphere_code: string;
+  sphere_name: string;
+  position: number;
+  code: string;
+  name: string;
+  traits: string;
+  text: string;
+  flavor: string;
+  is_unique: boolean;
+  threat: number;
+  willpower: number;
+  attack: number;
+  defense: number;
+  health: number;
+  quantity: number;
+  deck_limit: number;
+  illustrator: string;
+  octgnid: string;
+  has_errata: boolean;
+  url: string;
+  imagesrc: string;
+};
+
 export const getDeckList = async (date?: Date): Promise<Deck[]> => {
   const decklistDate = date || new Date();
 
   const url = `${RINGSDB_BASE_URL}/public/decklists/by_date/${formatDate(
     decklistDate
   )}`;
-  console.log(url);
+
+  // TODO: Error handling
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+};
+
+export const getDeck = async (deckId: number): Promise<Deck> => {
+  const url = `${RINGSDB_BASE_URL}/public/decklist/${deckId}`;
 
   // TODO: Error handling
   const response = await fetch(url);
