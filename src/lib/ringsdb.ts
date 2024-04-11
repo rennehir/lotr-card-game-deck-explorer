@@ -2,7 +2,7 @@ import { formatDate } from "./date";
 
 const RINGSDB_BASE_URL = "https://ringsdb.com/api";
 
-type Deck = {
+export type Deck = {
   id: number;
   name: string;
   date_creation: string;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { fonts } from "@/fonts";
 import { Providers } from "@/providers";
+import { Container } from "@chakra-ui/react";
 
 export const metadata: Metadata = {
   title: "Deck Explorer for The Lord of the Rings: The Card Game",
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={fonts.rubik.variable}>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Container>{children}</Container>
+        </Providers>
       </body>
     </html>
   );

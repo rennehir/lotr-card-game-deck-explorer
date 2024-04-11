@@ -1,3 +1,4 @@
+import { DeckList } from "@/components/decklist";
 import { getDeckList } from "@/lib/ringsdb";
 
 const getDecklist = async () => {
@@ -10,7 +11,7 @@ const Home = async () => {
   return (
     <main>
       <div>
-        <p>{decks.length} decks found</p>
+        <DeckList decks={decks} />
       </div>
     </main>
   );
