@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { searchDeck } from "@/app/actions";
 import { Deck } from "@/lib/ringsdb";
-import { Box, Button, Heading, HStack, Input, VStack } from "@chakra-ui/react";
+import { Button, Heading, HStack, Input, VStack } from "@chakra-ui/react";
 import { DeckPreview } from "./deck-preview";
 
 export const DeckSearch = () => {

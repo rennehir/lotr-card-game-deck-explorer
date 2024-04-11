@@ -2,8 +2,14 @@ import { useState } from "react";
 import {
   Button,
   Card,
+  Heading,
   ListItem,
   OrderedList,
+  Stat,
+  StatGroup,
+  StatLabel,
+  StatNumber,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { Deck } from "@/lib/ringsdb";
@@ -14,7 +20,7 @@ type DeckPreviewProps = {
 };
 
 export const DeckPreview = ({ deck }: DeckPreviewProps) => {
-  const { name, username, heroes } = deck;
+  const { name, username, heroes, slots, starting_threat } = deck;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedHero, setSelectedHero] = useState<string | null>(null);
 
@@ -25,9 +31,28 @@ export const DeckPreview = ({ deck }: DeckPreviewProps) => {
 
   return (
     <Card padding={6} gap={3}>
-      <h2>{name}</h2>
+      <Heading as="h2">{name}</Heading>
+      <StatGroup>
+        <Stat>
+          <StatLabel>Heroes</StatLabel>
+          <StatNumber>{Object.keys(heroes).length}</StatNumber>
+        </Stat>
+        <Stat>
+          <StatLabel>Cards</StatLabel>
+          <StatNumber>
+            {Object.values(slots).reduce((a, b) => a + b, 0)}
+          </StatNumber>
+        </Stat>
+        <Stat>
+          <StatLabel>Starting threat</StatLabel>
+          <StatNumber>{starting_threat}</StatNumber>
+        </Stat>
+      </StatGroup>
       {username && <p>by {username}</p>}
-      <h3>Heroes</h3>
+      <Heading as="h3" size="md">
+        Heroes
+      </Heading>
+      <Text as="i">Click on a hero to see more details</Text>
       <OrderedList>
         {Object.entries(heroes).map(([heroId, quantity]) => {
           return (
