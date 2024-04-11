@@ -4,6 +4,7 @@ import { useState } from "react";
 import { searchDeck } from "@/app/actions";
 import { Deck } from "@/lib/ringsdb";
 import { Button, Card, Input } from "@chakra-ui/react";
+import { DeckPreview } from "./deck-preview";
 
 export const DeckSearch = () => {
   const [deck, setDeck] = useState<Deck>();
@@ -20,11 +21,7 @@ export const DeckSearch = () => {
         <Input name="deckId" type="text" placeholder="Search for a deck" />
         <Button type="submit">Search</Button>
       </form>
-      {deck && (
-        <article>
-          <h2>{deck.name}</h2>
-        </article>
-      )}
+      {deck && <DeckPreview deck={deck} />}
     </Card>
   );
 };

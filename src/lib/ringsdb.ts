@@ -9,9 +9,9 @@ export type Deck = {
   date_update: string;
   description_md: string;
   user_id: number;
-  username: string;
+  username?: string;
   heroes: { [cardId: string]: number };
-  heroes_details: HeroDetails[];
+  heroes_details?: HeroDetails[];
   slots: { [cardId: string]: number };
   version: string;
   last_pack: string;
@@ -69,6 +69,15 @@ export const getDeckList = async (date?: Date): Promise<Deck[]> => {
 
 export const getDeck = async (deckId: number): Promise<Deck> => {
   const url = `${RINGSDB_BASE_URL}/public/decklist/${deckId}`;
+
+  // TODO: Error handling
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+};
+
+export const getCard = async (cardId: string): Promise<Card> => {
+  const url = `${RINGSDB_BASE_URL}/public/card/${cardId}`;
 
   // TODO: Error handling
   const response = await fetch(url);
