@@ -61,26 +61,35 @@ export const getDeckList = async (date?: Date): Promise<Deck[]> => {
     decklistDate
   )}`;
 
-  // TODO: Error handling
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch decklist");
+  }
 };
 
 export const getDeck = async (deckId: number): Promise<Deck> => {
   const url = `${RINGSDB_BASE_URL}/public/decklist/${deckId}`;
 
-  // TODO: Error handling
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch deck");
+  }
 };
 
 export const getCard = async (cardId: string): Promise<Card> => {
   const url = `${RINGSDB_BASE_URL}/public/card/${cardId}`;
 
-  // TODO: Error handling
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch card");
+  }
 };

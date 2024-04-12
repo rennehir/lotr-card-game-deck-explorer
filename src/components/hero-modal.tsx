@@ -16,6 +16,7 @@ import {
   StatNumber,
   Box,
   VStack,
+  Alert,
 } from "@chakra-ui/react";
 
 import { Card, getCard } from "@/lib/ringsdb";
@@ -31,12 +32,18 @@ type HeroModalProps = {
 export const HeroModal = ({ cardId, isOpen, onClose }: HeroModalProps) => {
   const [hero, setHero] = useState<Card>();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
+    setError(undefined);
     setLoading(true);
     const fetchHero = async () => {
-      const hero = await getCard(cardId);
-      setHero(hero);
+      try {
+        const hero = await getCard(cardId);
+        setHero(hero);
+      } catch (error) {
+        setError("Failed to fetch hero");
+      }
     };
 
     fetchHero().then(() => setLoading(false));
@@ -49,8 +56,9 @@ export const HeroModal = ({ cardId, isOpen, onClose }: HeroModalProps) => {
         <ModalHeader>Hero #{cardId}</ModalHeader>
         <ModalCloseButton />
         <Skeleton isLoaded={!loading && !!hero}>
-          {hero && (
-            <ModalBody>
+          <ModalBody>
+            {error && <Alert status="error">{error}</Alert>}
+            {hero && !error && (
               <VStack spacing={4} alignItems="between">
                 <StatGroup>
                   <Stat>
@@ -93,8 +101,8 @@ export const HeroModal = ({ cardId, isOpen, onClose }: HeroModalProps) => {
                   />
                 </Box>
               </VStack>
-            </ModalBody>
-          )}
+            )}
+          </ModalBody>
         </Skeleton>
 
         <ModalFooter>
