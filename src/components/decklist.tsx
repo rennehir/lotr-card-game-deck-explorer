@@ -11,9 +11,7 @@ export const DeckList = async ({ decks }: DeckListProps) => {
     <OrderedList>
       {decks.map((deck) => (
         <ListItem key={deck.id}>
-          <article>
-            <h2>{deck.name}</h2>
-          </article>
+          {deck.name} ({deck.id})
         </ListItem>
       ))}
     </OrderedList>
